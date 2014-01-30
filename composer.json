@@ -14,7 +14,7 @@
 		}
 	],
 	"require": {
-		"php": ">=5.3",
+		"php": ">=5.3"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "3.7.*"
@@ -22,11 +22,11 @@
 	"extra": {
 		"installer-name": "MktMigrate",
 		"installer-paths": {
-			"app/Plugin/MktMigrate": ["plastic/mktmigrate"],
+			"app/Plugin/MktMigrate": ["plastic/mktmigrate"]
 		}
 	},
 	"support": {
-		"email": "andre.seduc@gmail.com",
+		"email": "andre.seduc@gmail.com"
 	},
 	"config": {
 		"vendor-dir": "Vendor"
