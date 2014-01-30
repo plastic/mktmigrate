@@ -13,3 +13,13 @@ dump schema interface
 ```php
 CakePlugin::load('MktMigrate', array('bootstrap' => true, 'routes' => false));
 ```
+
+ou
+
+``` json
+{
+   "require": {
+       "plastic/mktmigrate": "dev-master"
+   }
+}
+```
