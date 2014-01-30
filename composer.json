@@ -1,0 +1,34 @@
+{
+	"name": "plastic/mktmigrate",
+	"type": "cakephp-plugin",
+	"description": "dump schema interface",
+	"keywords": ["cakephp","migrations","schema"],
+	"homepage": "http://github.com/plastic/mktmigrate",
+	"version": "0.0.1",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "André Andrade Gomes",
+			"homepage": "http://mktvirtual.com.br",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.3",
+	},
+	"require-dev": {
+		"phpunit/phpunit": "3.7.*"
+	},
+	"extra": {
+		"installer-name": "MktMigrate",
+		"installer-paths": {
+			"app/Plugin/MktMigrate": ["plastic/mktmigrate"],
+		}
+	},
+	"support": {
+		"email": "andre.seduc@gmail.com",
+	},
+	"config": {
+		"vendor-dir": "Vendor"
+	}
+}
