@@ -4,7 +4,7 @@
 	"description": "dump schema interface",
 	"keywords": ["cakephp","migrations","schema"],
 	"homepage": "http://github.com/plastic/mktmigrate",
-	"version": "1.0.0",
+	"version": "3.0.0",
 	"license": "MIT",
 	"authors": [
 		{
