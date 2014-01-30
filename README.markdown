@@ -1,3 +1,5 @@
+[![Latest Stable Version](https://poser.pugx.org/plastic/mktmigrate/v/stable.png)](https://packagist.org/packages/plastic/mktmigrate) [![Total Downloads](https://poser.pugx.org/plastic/mktmigrate/downloads.png)](https://packagist.org/packages/plastic/mktmigrate) [![Latest Unstable Version](https://poser.pugx.org/plastic/mktmigrate/v/unstable.png)](https://packagist.org/packages/plastic/mktmigrate) [![License](https://poser.pugx.org/plastic/mktmigrate/license.png)](https://packagist.org/packages/plastic/mktmigrate)
+
 mktmigrate
 ==========
 
