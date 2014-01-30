@@ -12,7 +12,8 @@ dump schema interface
 
 ## Installation
 
-```php
+app/Config/bootstrap.php
+``` php
 CakePlugin::load('MktMigrate', array('bootstrap' => true, 'routes' => false));
 ```
 
@@ -24,4 +25,12 @@ ou
        "plastic/mktmigrate": "dev-master"
    }
 }
+```
+
+## Starting
+
+/app/Plugin/MktMigrate/Config/bootstrap.php alter credentials
+``` php
+Configure::write('MktMigrate.login', 'migrate');
+Configure::write('MktMigrate.pass', 'migrate');
 ```
