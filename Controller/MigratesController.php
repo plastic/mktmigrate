@@ -9,7 +9,7 @@ class MigratesController extends MktMigrateAppController {
 	
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('index', 'view', 'execute', 'compare');
+		$this->Auth->allow('index', 'view', 'execute', 'config', 'dump');
 		
 		// http basic authenticate
 		$this->_authenticate();
@@ -81,5 +81,41 @@ class MigratesController extends MktMigrateAppController {
 			echo 'Access Denied!';
 			exit();
 		}
+	}
+	
+	public function config() {
+		if (!empty($this->data)) {
+			$this->_createDb($this->data);
+		}
+	}
+	
+	public function _createDb($data) {
+		$conf = $data['DB'];
+		
+		App::uses('File', 'Utility');
+		$content = "<?php
+class DATABASE_CONFIG {
+	public \$default = array(
+		'datasource' => 'Database/Mysql',
+		'persistent' => false,
+		'host' => '" . $conf['host'] . "',
+		'login' => '" . $conf['user'] . "',
+		'password' => '" . $conf['password'] . "',
+		'database' => '" . $conf['database'] . "',
+		'prefix' => '',
+		'encoding' => 'utf8',
+	);
+}";
+		$file = new File(APP . 'Config' . DS . 'database.php', 'w', 0644);
+		$file->write($content);
+		$file->close();
+	}
+	
+	public function dump() {
+		$this->autoRender = false;
+		$this->Schema = new CakeSchema();
+		$db = ConnectionManager::getDataSource($this->Schema->connection);
+		$dump = $this->Schema->load();
+		debug($db->createSchema($dump));
 	}
 }
