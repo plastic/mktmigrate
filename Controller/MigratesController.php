@@ -5,6 +5,8 @@ App::uses('MktMigrateAppController', 'MktMigrate.Controller');
 
 class MigratesController extends MktMigrateAppController {
 	
+	public $Schema;
+	
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Auth->allow('index', 'view', 'execute', 'compare');
@@ -18,24 +20,33 @@ class MigratesController extends MktMigrateAppController {
 	}
 	
 	public function view() {
-		$this->Schema = new CakeSchema();
+		$dumpSchema = $this->_loadSchema(new CakeSchema());
 		$db = ConnectionManager::getDataSource($this->Schema->connection);
+		if (!$dumpSchema) {
+			$this->setFlashMessage('Gere o schema.php primeiramente [cake Schema generate -f]!', 'error', array('controller' => 'migrates', 'action' => 'index'));
+		} else {
+			$this->set('schema', $db->createSchema($dumpSchema));
+		}
+	}
+	
+	private function _loadSchema(CakeSchema $schema) {
+		$this->Schema = $schema;
 		$dumpSchema = $this->Schema->load();
-		$this->set('schema', $db->createSchema($dumpSchema));
+		return $dumpSchema;
 	}
 	
 	public function execute() {
 		$this->autoRender = false;
 		try {
-			$this->_executeQuery();
+			$this->_executeSchema(new CakeSchema());
 			$this->setFlashMessage('Comando executado com sucesso!', 'success', array('controller' => 'migrates', 'action' => 'index'));
 		} catch (Exception $e) {
 			$this->setFlashMessage('Já existem as tabelas!', 'error', array('controller' => 'migrates', 'action' => 'index'));
 		}
 	}
 	
-	public function _executeQuery() {
-		$this->Schema = new CakeSchema();
+	public function _executeSchema(CakeSchema $schema) {
+		$this->Schema = $schema;
 		$db = ConnectionManager::getDataSource($this->Schema->connection);
 		$dumpSchema = $this->Schema->load();
 		foreach ($dumpSchema->tables as $table => $fields) {
@@ -65,9 +76,9 @@ class MigratesController extends MktMigrateAppController {
 		}
 		
 		if (!isset($_SERVER['PHP_AUTH_USER']) || !($_SERVER['PHP_AUTH_USER'] == Configure::read('MktMigrate.login') && $_SERVER['PHP_AUTH_PW'] == Configure::read('MktMigrate.pass'))) {
-			header('WWW-Authenticate: Basic realm="DBV interface"');
+			header('WWW-Authenticate: Basic realm="MktMigrate interface"');
 			header('HTTP/1.0 401 Unauthorized');
-			echo _('Access denied');
+			echo 'Access Denied!';
 			exit();
 		}
 	}
